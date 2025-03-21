@@ -34,7 +34,7 @@ const sendLatestPost = async () => {
         const response = await axios.post(telegramUrl, {
             chat_id: TELEGRAM_CHAT_ID,
             caption: message,
-            photo: imageUrl, 
+            photo: imageUrl,
         });
 
         console.log('✅ Message sent! Telegram response:', response.data);
