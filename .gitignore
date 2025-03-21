@@ -6,7 +6,9 @@ package-lock.json
 .env
 
 # GCP service account keys (never commit these!)
+# Ignore ALL .json EXCEPT package.json
 *.json
+!package.json
 
 # Logs
 npm-debug.log*
