@@ -26,4 +26,4 @@ build/
 .firebase/
 functions/lib/
 .env.*
-.gcp
+*.gcp
