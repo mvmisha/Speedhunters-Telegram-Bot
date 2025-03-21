@@ -4,9 +4,11 @@ const cheerio = require('cheerio');
 const { Firestore, Timestamp } = require('@google-cloud/firestore');
 require('dotenv').config();
 
-const app = express();
 const firestore = new Firestore();
 const COLLECTION_NAME = 'published_posts';
+
+const app = express();
+
 
 app.get('/', async (req, res) => {
   try {
@@ -57,7 +59,4 @@ app.get('/', async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`🚀 listening on port ${PORT}`);
-});
+module.exports = app;

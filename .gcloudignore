@@ -1,0 +1,29 @@
+# Node modules — GCP installs them automatically
+node_modules/
+
+# Local environment variables
+.env
+.env.local
+.env.*
+
+# Secrets
+serviceAccount.json
+
+# Development-only files and folders
+.vscode/
+.idea/
+.DS_Store
+*.log
+*.test.js
+*.spec.js
+coverage/
+test/
+src/sendLatestPost.js
+
+# Git & editor stuff
+.git/
+.gitignore
+
+# Build output (if any)
+dist/
+build/
