@@ -1,0 +1,28 @@
+﻿# Node.js dependencies
+node_modules/
+package-lock.json
+
+# Environment variables
+.env
+
+# GCP service account keys (never commit these!)
+*.json
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Optional local build artifacts
+dist/
+build/
+
+# IDEs & OS
+.DS_Store
+.vscode/
+.idea/
+
+# Cloud Function deployment artifacts
+.firebase/
+functions/lib/
+.env.*
