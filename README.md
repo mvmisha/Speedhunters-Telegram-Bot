@@ -78,65 +78,7 @@ gcloud functions deploy myFunctionName `
 
 ✅ Note: Remove `--allow-unauthenticated` to make it private.
 
----
 
-## ⏰ (Optional) Schedule It Every 6 Hours
-
-```powershell
-gcloud scheduler jobs create http myScheduledJob `
-  --schedule "0 */6 * * *" `
-  --time-zone "UTC" `
-  --uri "https://REGION-PROJECT_ID.cloudfunctions.net/myFunctionName" `
-  --http-method GET `
-  --oidc-service-account-email=SERVICE_ACCOUNT@YOUR_PROJECT.iam.gserviceaccount.com
-```
-
----
-
-## 🔐 Calling a Private Function with Identity Token
-
-If you disable `--allow-unauthenticated`, you'll need to call it like this:
-
-```powershell
-$token = gcloud auth print-identity-token
-curl -H "Authorization: Bearer $token" `
-     "https://REGION-PROJECT_ID.cloudfunctions.net/myFunctionName"
-```
-
-Or use the included script:
-
-```bash
-node getIdentityToken.js
-```
-
----
-
-## 📁 Project Structure
-
-```bash
-.
-├── src/
-│   ├── index.js              # Express app
-│   ├── sendLatestPost.js     # Scraper & Telegram logic
-│   └── getIdentityToken.js   # Utility to get OIDC token
-│
-├── server.js                 # Local dev entry point
-├── .env                      # Local environment vars
-├── .gitignore
-├── .gcloudignore
-└── package.json
-```
-
----
-
-## 🛡 Security Tips
-
-- Never commit `.env` or `serviceAccount.json`
-- Store all secrets in **GCP environment variables**
-- Disable `--allow-unauthenticated` for private deployments
-- Use IAM roles: `Cloud Functions Invoker` and `Firestore User`
-
----
 
 ## 📬 Telegram Setup
 
