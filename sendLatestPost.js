@@ -1,6 +1,8 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
+const { summarizePost } = require('./summaryService.js'); // adjust path if needed
 require('dotenv').config();
+
 
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
 const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
@@ -26,8 +28,8 @@ const sendLatestPost = async () => {
 
         console.log(`✅ Sending post: ${title}`);
 
-        // 4. Prepare the message for Telegram
-        const message = title + " " + url;
+        const summary = await summarizePost(url);
+        const message = `🏎️  ${title}\n\n🧠  ${summary || 'N/A'}\n\n🔗 ${url}`;
         const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendPhoto`;
 
         // 5. Send the message to Telegram

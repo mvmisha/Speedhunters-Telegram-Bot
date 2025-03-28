@@ -4,6 +4,9 @@ const cheerio = require('cheerio');
 const { Firestore, Timestamp } = require('@google-cloud/firestore');
 require('dotenv').config();
 
+const { summarizePost } = require('./summaryService'); // adjust path if needed
+
+
 const firestore = new Firestore();
 const COLLECTION_NAME = 'published_posts';
 
@@ -34,8 +37,12 @@ app.get('/', async (req, res) => {
       return res.status(200).send('Already sent');
     }
 
-    // 3. Send to Telegram
-    const message = `<b>${title}</b>\n<a href="${url}">Read more</a>`;
+    // 3. Get summary from Vertex AI
+    const summary = await summarizePost(url);
+
+
+    // 4. Send to Telegram
+    const message = `🏎️  ${title}\n\n🧠  ${summary || 'N/A'}\n\n🔗 ${url}`;
     const telegramUrl = `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/sendPhoto`;
 
     await axios.post(telegramUrl, {
@@ -45,7 +52,7 @@ app.get('/', async (req, res) => {
       parse_mode: 'HTML'
     });
 
-    // 4. Mark as published
+    // 5. Mark as published
     await docRef.set({
       url,
       timestamp: Timestamp.now()
